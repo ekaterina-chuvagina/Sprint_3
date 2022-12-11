@@ -1,19 +1,18 @@
 from selenium.common import TimeoutException
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
-from tests.locators import SectionConstructorLocators
-
-main_page_url = 'https://stellarburgers.nomoreparties.site/'
+from locators.section_constructor_locators import SectionConstructorLocators
+from constants import Constants
 
 
 # Проверка перехода к разделу «Соусы»
 def test_section_constructor_transition_section_sauces_user_not_authorized_successfully(driver):
 
     # перейти на главную страницу
-    driver.get(main_page_url)
+    driver.get(Constants.MAIN_PAGE_URL)
 
     try:
-        WebDriverWait(driver, 3).until(expected_conditions.url_to_be(main_page_url))
+        WebDriverWait(driver, 3).until(expected_conditions.url_to_be(Constants.MAIN_PAGE_URL))
     except TimeoutException:
         assert False, 'Ошибка при переходе на главную страницу'
 
@@ -30,10 +29,10 @@ def test_section_constructor_transition_section_sauces_user_not_authorized_succe
 def test_section_constructor_transition_section_toppings_user_not_authorized_successfully(driver):
 
     # перейти на главную страницу
-    driver.get(main_page_url)
+    driver.get(Constants.MAIN_PAGE_URL)
 
     try:
-        WebDriverWait(driver, 3).until(expected_conditions.url_to_be(main_page_url))
+        WebDriverWait(driver, 3).until(expected_conditions.url_to_be(Constants.MAIN_PAGE_URL))
     except TimeoutException:
         assert False, 'Ошибка при переходе на главную страницу'
 
@@ -50,10 +49,10 @@ def test_section_constructor_transition_section_toppings_user_not_authorized_suc
 def test_section_constructor_transition_section_buns_user_not_authorized_successfully(driver):
 
     # перейти на главную страницу
-    driver.get(main_page_url)
+    driver.get(Constants.MAIN_PAGE_URL)
 
     try:
-        WebDriverWait(driver, 3).until(expected_conditions.url_to_be(main_page_url))
+        WebDriverWait(driver, 3).until(expected_conditions.url_to_be(Constants.MAIN_PAGE_URL))
     except TimeoutException:
         assert False, 'Ошибка при переходе на главную страницу'
 

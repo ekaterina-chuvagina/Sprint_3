@@ -3,18 +3,17 @@ import pytest
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
-from tests.locators import RegistrationPageLocators, LoginPageLocators
-from tests.helpers import generate_login
-
-registration_page_url = 'https://stellarburgers.nomoreparties.site/register'
-login_page_url = 'https://stellarburgers.nomoreparties.site/login'
+from locators.login_page_locators import LoginPageLocators
+from locators.registration_page_locators import RegistrationPageLocators
+from helpers import generate_login
+from constants import Constants
 
 
 def test_registration_page_user_should_be_registered_successfully(driver):
     username = generate_login()
     email = username + "@yandex.ru"
 
-    driver.get(registration_page_url)
+    driver.get(Constants.REGISTRATION_PAGE_URL)
 
     # Имя и email
     nameAndEmail = driver.find_elements(*RegistrationPageLocators.NEW_NAME_AND_EMAIL)
@@ -32,7 +31,7 @@ def test_registration_page_user_should_be_registered_successfully(driver):
 
     current_url = driver.current_url
 
-    assert current_url == login_page_url
+    assert current_url == Constants.LOGIN_PAGE_URL
 
 
 @pytest.mark.parametrize("password", ["a", "abc", "abcde"])
@@ -40,7 +39,7 @@ def test_registration_page_password_with_incorrect_number_of_characters_should_s
     username = generate_login()
     email = username + "@yandex.ru"
 
-    driver.get(registration_page_url)
+    driver.get(Constants.REGISTRATION_PAGE_URL)
 
     # Имя и email
     nameAndEmail = driver.find_elements(*RegistrationPageLocators.NEW_NAME_AND_EMAIL)
@@ -63,13 +62,13 @@ def test_registration_page_password_with_incorrect_number_of_characters_should_s
 def test_registration_page_login_button_user_logged_in_successfully(driver):
 
     # перейти в форму регистрации
-    driver.get(registration_page_url)
+    driver.get(Constants.REGISTRATION_PAGE_URL)
 
     # найти и нажать на кнопку "Войти"
     driver.find_element(*LoginPageLocators.BUTTON_ENTER_FORM_REGISTRATION).click()
 
     # явное ожидание для загрузки страницы
-    WebDriverWait(driver, 3).until(expected_conditions.url_changes(registration_page_url))
+    WebDriverWait(driver, 3).until(expected_conditions.url_changes(Constants.REGISTRATION_PAGE_URL))
 
     # ввести email и пароль
     driver.find_element(*LoginPageLocators.EMAIL_FIELD).send_keys("user1234@yandex.ru")
@@ -79,7 +78,7 @@ def test_registration_page_login_button_user_logged_in_successfully(driver):
     driver.find_element(*LoginPageLocators.BUTTON_ENTER).click()
 
     # явное ожидание для загрузки страницы
-    WebDriverWait(driver, 3).until(expected_conditions.url_changes(registration_page_url))
+    WebDriverWait(driver, 3).until(expected_conditions.url_changes(Constants.REGISTRATION_PAGE_URL))
 
     button_text = driver.find_element(*LoginPageLocators.BUTTON_SIGN_IN_ACCOUNT_MAIN_PAGE).text
 
